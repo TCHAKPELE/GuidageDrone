@@ -402,8 +402,71 @@ test('serie daction avance 2 fois ,puis oriente toi vers la droite et recule 1 f
 
 });
 
+function create_obstacle(obstacle) {
+
+    const x = obstacle.x;
+
+    const y = obstacle.y;
+
+    return {x,y};
+
+}
 
 
+
+test('creer obstacle à la position x : 1 y: 3 ', () => {
+
+    const obstacle = { x: 1, y: 3 };
+
+    const position_obstacle = create_obstacle(obstacle);
+
+    expect(position_obstacle).toEqual({ x: 1, y: 3 });
+
+});
+
+function Dectete_obstacle(obstacle, rover) {
+
+    const collision = ["oui", "non"];
+
+    const id = ((obstacle.x - rover.x) % + (obstacle.y - rover.y)) % 1;
+
+    
+
+    return collision[id];
+
+}
+
+
+
+test(' avance au N avec le rover à la  position x:0 , y:0  , avec un obstacle a la position x: 0 y : 1 on doit avoir comme resultat collision = oui ', () => {
+
+    
+
+
+    let position = { x: 0, y: 0 };
+
+    let orientation = 'N';
+
+    const obstacle = { x: 0, y: 1 };
+
+    const position_obstacle = create_obstacle(obstacle);
+
+
+    const rover = create_rover_position(position, orientation);
+
+
+    const nouvelleposition = deplacer(rover, 'a');
+
+    const collision = Dectete_obstacle(position_obstacle, nouvelleposition.position);
+
+    expect(collision).toEqual("vrai");
+    
+
+
+
+
+
+});
 
 
 
